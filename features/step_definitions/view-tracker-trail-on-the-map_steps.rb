@@ -4,7 +4,8 @@ Given(/^Sheldon has a tracker$/) do
 end
 
 When(/^he turns on tracker's "track movement"$/) do
-  pending # express the regexp above with the code you wish you had
+  login_as @sheldon, scope: :user
+  pending
 end
 
 When(/^he sends the tracker via post to his office$/) do
