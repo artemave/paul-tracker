@@ -44,7 +44,8 @@ group :development, :test do
   gem 'spring-commands-rspec'
   gem 'spring-commands-cucumber'
   gem 'cucumber-rails', require: false
-  gem 'rspec-rails', require: false
+  gem 'rspec-rails'
   gem 'database_cleaner'
+  gem 'factory_girl_rails'
 end
 
