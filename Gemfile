@@ -27,11 +27,13 @@ gem 'twilio-ruby'
 gem 'bitmask_attributes'
 gem 'awesome_print'
 
+gem 'puma'
+
 # monitoring https://www.skylight.io
 gem "skylight"
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+# gem 'bcrypt'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
