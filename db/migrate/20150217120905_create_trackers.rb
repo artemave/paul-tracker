@@ -1,6 +1,8 @@
 class CreateTrackers < ActiveRecord::Migration
   def change
-    create_table :trackers do |t|
+    enable_extension "uuid-ossp"
+
+    create_table :trackers, id: :uuid do |t|
       t.string :phone_number
       t.string :password
       t.belongs_to :user, index: true

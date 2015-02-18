@@ -13,6 +13,10 @@
 
 ActiveRecord::Schema.define(version: 20150218204328) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
+
   create_table "api_requests", force: :cascade do |t|
     t.string   "command"
     t.datetime "completed_at"
@@ -21,9 +25,9 @@ ActiveRecord::Schema.define(version: 20150218204328) do
     t.datetime "updated_at",   null: false
   end
 
-  add_index "api_requests", ["tracker_id"], name: "index_api_requests_on_tracker_id"
+  add_index "api_requests", ["tracker_id"], name: "index_api_requests_on_tracker_id", using: :btree
 
-  create_table "trackers", force: :cascade do |t|
+  create_table "trackers", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "phone_number"
     t.string   "password"
     t.integer  "user_id"
@@ -32,7 +36,7 @@ ActiveRecord::Schema.define(version: 20150218204328) do
     t.integer  "modes",        default: 0, null: false
   end
 
-  add_index "trackers", ["user_id"], name: "index_trackers_on_user_id"
+  add_index "trackers", ["user_id"], name: "index_trackers_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -50,7 +54,7 @@ ActiveRecord::Schema.define(version: 20150218204328) do
     t.string   "last_sign_in_ip"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end
