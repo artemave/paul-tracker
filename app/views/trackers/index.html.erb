@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Trackers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Phone Number</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @trackers.each do |tracker| %>
+      <tr>
+        <td><%= link_to tracker.phone_number, tracker %></td>
+        <td><%= link_to 'Edit', edit_tracker_path(tracker) %></td>
+        <td><%= link_to 'Destroy', tracker, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Tracker', new_tracker_path %>

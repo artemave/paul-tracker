@@ -1,0 +1,12 @@
+<%= simple_form_for(@tracker) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :phone_number %>
+    <%= f.input :password %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

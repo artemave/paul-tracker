@@ -26,6 +26,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'simple_form'
 gem 'devise'
 gem 'foundation-rails'
+gem 'twilio-ruby'
+gem 'bitmask_attributes'
+gem 'awesome_print'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -37,6 +40,7 @@ gem 'foundation-rails'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
+  gem 'rest-client'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pry-byebug'
 
@@ -51,5 +55,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
+  gem 'selenium-webdriver'
 end
 

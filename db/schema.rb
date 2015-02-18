@@ -11,14 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150217123313) do
+ActiveRecord::Schema.define(version: 20150218204328) do
+
+  create_table "api_requests", force: :cascade do |t|
+    t.string   "command"
+    t.datetime "completed_at"
+    t.integer  "tracker_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "api_requests", ["tracker_id"], name: "index_api_requests_on_tracker_id"
 
   create_table "trackers", force: :cascade do |t|
     t.string   "phone_number"
     t.string   "password"
     t.integer  "user_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "modes",        default: 0, null: false
   end
 
   add_index "trackers", ["user_id"], name: "index_trackers_on_user_id"

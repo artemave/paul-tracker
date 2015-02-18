@@ -6,6 +6,12 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'welcome#index'
 
+  resources :trackers do
+    post :track_movement, on: :member
+  end
+
+  post 'sms_callback' => 'callbacks#sms', as: :sms_callback
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
