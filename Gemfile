@@ -27,6 +27,9 @@ gem 'twilio-ruby'
 gem 'bitmask_attributes'
 gem 'awesome_print'
 
+# monitoring https://www.skylight.io
+gem "skylight"
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
