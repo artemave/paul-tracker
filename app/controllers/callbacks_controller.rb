@@ -5,6 +5,7 @@ class CallbacksController < ApplicationController
     from = params.fetch('From', '')
     text = params.fetch('Body', '')
 
+    logger.info(params.inspect)
     if tracker = Tracker.where(phone_number: from).first
       if text =~ /move ok!/
         tracker.modes << :track_movement
