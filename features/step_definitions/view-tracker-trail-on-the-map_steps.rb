@@ -24,5 +24,11 @@ When(/^he sends the tracker via post to his office$/) do
 end
 
 Then(/^Sheldon can see how the parcel traveled from his home to his office$/) do
-  pending # express the regexp above with the code you wish you had
+  visit tracker_path @sheldon.trackers.first
+  coordinates = page.evaluate_script %{ window.testCoordinates }
+  expected_coordinates = @sheldon.trackers.first.movements.map do |m|
+    [m.lat, m.lng]
+  end
+
+  expect(coordinates).to eq(expected_coordinates)
 end

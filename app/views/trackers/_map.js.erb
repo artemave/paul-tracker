@@ -1,5 +1,14 @@
 var coordinates = []
+
+<% unless Rails.env.production? %>
+  window.testCoordinates = []
+<% end %>
+
 <% tracker.movements.each do |m| %>
+  <% unless Rails.env.production? %>
+    window.testCoordinates.push([<%= m.lat %>, <%= m.lng %>])
+  <% end %>
+
   coordinates.push( new google.maps.LatLng(<%= m.lat %>, <%= m.lng %>) )
 <% end %>
 
