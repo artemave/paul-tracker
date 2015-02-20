@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.2.0'
+
 gem 'rails', '4.2.0'
 gem 'pg'
 # Use SCSS for stylesheets
@@ -27,7 +29,9 @@ gem 'twilio-ruby'
 gem 'bitmask_attributes'
 gem 'awesome_print'
 
-gem 'puma'
+group :production do
+  gem 'puma'
+end
 
 # monitoring https://www.skylight.io
 gem "skylight"
@@ -36,12 +40,13 @@ gem "skylight"
 # gem 'bcrypt'
 
 group :development, :test do
+  gem 'quiet_assets'
   gem 'rest-client'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pry-byebug'
 
-  # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'

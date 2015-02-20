@@ -8,6 +8,7 @@
 
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "vendor/modernizr" %>
+    <%= yield :javascript_includes %>
     <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
   </head>
@@ -18,6 +19,8 @@
     <p class="alert"><%= alert %></p>
 
     <%= yield %>
+
+    <%= yield :javascript %>
 
   </body>
 </html>

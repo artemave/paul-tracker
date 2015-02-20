@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150218204328) do
+ActiveRecord::Schema.define(version: 20150219234920) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,18 @@ ActiveRecord::Schema.define(version: 20150218204328) do
   end
 
   add_index "api_requests", ["tracker_id"], name: "index_api_requests_on_tracker_id", using: :btree
+
+  create_table "movements", force: :cascade do |t|
+    t.float    "lat"
+    t.float    "lng"
+    t.float    "speed"
+    t.datetime "reported_at"
+    t.integer  "tracker_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "movements", ["tracker_id"], name: "index_movements_on_tracker_id", using: :btree
 
   create_table "trackers", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "phone_number"
