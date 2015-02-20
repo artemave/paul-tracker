@@ -30,5 +30,5 @@ function initMap(coordinates) {
 }
 
 if (coordinates.length > 0) {
-  google.maps.event.addDomListener(window, 'load', initMap.bind(null, coordinates))
+  $(document).on("ready page:load", initMap.bind(null, coordinates))
 }
