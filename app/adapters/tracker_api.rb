@@ -3,7 +3,7 @@ class TrackerAPI < Struct.new(:tracker)
     twilio.messages.create(
       to: tracker.phone_number,
       from: Rails.application.secrets.app_phone_number,
-      body: "move #{tracker.password}"
+      body: "move#{tracker.password}"
     )
   end
 
