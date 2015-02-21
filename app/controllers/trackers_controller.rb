@@ -1,6 +1,6 @@
 class TrackersController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_tracker, only: [:show, :edit, :update, :destroy, :track_movement]
+  before_action :authenticate_user!, except: :show
+  before_action :set_tracker, only: [:edit, :update, :destroy, :track_movement]
 
   # GET /trackers
   # GET /trackers.json
@@ -11,6 +11,7 @@ class TrackersController < ApplicationController
   # GET /trackers/1
   # GET /trackers/1.json
   def show
+    @tracker = Tracker.find(params[:id])
   end
 
   # GET /trackers/new
