@@ -11,10 +11,6 @@
   <%= link_to 'Back', trackers_path %>
 <% end %>
 
-<% content_for :javascript_includes do %>
-  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp" %>
-<% end %>
-
 <% content_for :javascript do %>
   <script type="text/javascript" charset="utf-8">
     <%= render 'map.js', tracker: @tracker, map_container_selector: 'map-canvas' %>

@@ -6,9 +6,9 @@
 
     <title><%= content_for?(:title) ? yield(:title) : "foundation-rails" %></title>
 
+    <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp" %>
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "vendor/modernizr" %>
-    <%= yield :javascript_includes %>
     <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
   </head>
