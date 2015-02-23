@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   resources :trackers do
     post :track_movement, on: :member
+    post :stop_track_movement, on: :member
   end
 
   post 'sms_callback' => 'callbacks#sms', as: :sms_callback

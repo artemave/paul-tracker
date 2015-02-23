@@ -1,13 +1,15 @@
 class TrackerAPI < Struct.new(:tracker)
-  def track_movement
-    twilio.messages.create(
+  def track_movement on
+    command = on ? "move" : "nomove"
+
+    self.class.twilio.messages.create(
       to: tracker.phone_number,
       from: Rails.application.secrets.app_phone_number,
-      body: "move#{tracker.password}"
+      body: "%s%s" % [command, tracker.password]
     )
   end
 
-  def twilio
+  def self.twilio
     @twilio ||= Twilio::REST::Client.new(
       Rails.application.secrets.twilio_account_sid,
       Rails.application.secrets.twilio_auth_token)

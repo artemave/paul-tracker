@@ -1,6 +1,7 @@
 class TrackersController < ApplicationController
   before_action :authenticate_user!, except: :show
-  before_action :set_tracker, only: [:edit, :update, :destroy, :track_movement]
+  before_action :set_tracker, only: [:edit, :update, :destroy, :track_movement,
+                                     :stop_track_movement]
 
   # GET /trackers
   # GET /trackers.json
@@ -64,13 +65,22 @@ class TrackersController < ApplicationController
   end
 
   def track_movement
-    tracker_api = TrackerAPI.new(@tracker)
-    tracker_api.track_movement
+    tracker_api.track_movement(true)
+
+    redirect_to @tracker, notice: 'Request sent to tracker.'
+  end
+
+  def stop_track_movement
+    tracker_api.track_movement(false)
 
     redirect_to @tracker, notice: 'Request sent to tracker.'
   end
 
   private
+    def tracker_api
+      @tracker_api ||= TrackerAPI.new(@tracker)
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_tracker
       @tracker = current_user.trackers.find(params[:id])

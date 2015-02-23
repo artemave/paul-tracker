@@ -5,7 +5,11 @@
 <% end %>
 
 <% if current_user && current_user.trackers.include?(@tracker) %>
-  <%= button_to "Track Movement", { action: 'track_movement', id: @tracker }, { class: 'button' } %>
+  <% if @tracker.tracking_movement? %>
+    <%= button_to "Stop Track Movement", { action: 'stop_track_movement', id: @tracker }, { class: 'button' } %>
+  <% else %>
+    <%= button_to "Track Movement", { action: 'track_movement', id: @tracker }, { class: 'button' } %>
+  <% end %>
 
   <%= link_to 'Edit', edit_tracker_path(@tracker) %> |
   <%= link_to 'Back', trackers_path %>

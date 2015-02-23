@@ -56,6 +56,18 @@ end
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
+require 'vcr'
+
+VCR.configure do |c|
+  c.hook_into :webmock
+  c.ignore_hosts '127.0.0.1', 'localhost'
+  c.cassette_library_dir = 'features/cassettes'
+end
+
+VCR.cucumber_tags do |t|
+  t.tag  '@vcr', use_scenario_name: true
+end
+
 World Warden::Test::Helpers
 Warden.test_mode!
 

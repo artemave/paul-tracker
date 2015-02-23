@@ -14,7 +14,7 @@
       <tr>
         <td><%= link_to tracker.phone_number, tracker %></td>
         <td>
-          <% state = tracker.modes?(:track_movement) ? 'on' : 'off' %>
+          <% state = if tracker.tracking_movement? then 'on' else 'off' end %>
           <i class="icon-globe-alt <%= "state-%s" % state %>" title="track movement is <%= state %>"></i>
         </td>
         <td><%= link_to 'Edit', edit_tracker_path(tracker) %></td>
