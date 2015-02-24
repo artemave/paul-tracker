@@ -12,8 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require nouislider
 //= require foundation
 //= require turbolinks
+//= require turboboost
 //= require_tree .
 
 $(function(){ $(document).foundation(); });

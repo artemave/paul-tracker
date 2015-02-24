@@ -13,6 +13,19 @@ class TrackersController < ApplicationController
   # GET /trackers/1.json
   def show
     @tracker = Tracker.find(params[:id])
+
+    # convert param values from epoch to datetime
+    slider_params = Hash[(params[:q] || {}).map {|k,v| [k, Time.at(v.to_f)]}]
+
+    @slider_params = ActiveSupport::HashWithIndifferentAccess[
+      time_window_start: 3.days.ago,
+      time_window_end: Time.now,
+      time_window_min: 1.week.ago,
+      time_window_max: Time.now
+    ].merge(slider_params)
+
+    @movements = @tracker.movements.within_time_window(
+      @slider_params.slice(:time_window_start, :time_window_end))
   end
 
   # GET /trackers/new

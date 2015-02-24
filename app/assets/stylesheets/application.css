@@ -11,8 +11,8 @@
  * file per style scope.
  *
  *= require fontello
+ *= jquery.nouislider
  *= require_tree .
  *= require_self
  *= require foundation_and_overrides
-
  */

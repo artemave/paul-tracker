@@ -16,14 +16,17 @@ When(/^he turns on tracker's "track movement"$/) do
 end
 
 When(/^he sends the tracker via post to his office$/) do
+  reported_at = (2.days.ago).strftime("%D %H:%M")
   receive_sms_from_tracker(@tracker,
-                           "move! \nlat:51.36162 long:-0.18200 speed:003.0 \r\nT:02/19/15 20:38 \r\n")
+                           "move! \nlat:51.36162 long:-0.18200 speed:003.0 \r\nT:#{reported_at} \r\n")
 
+  reported_at = (1.day.ago).strftime("%D %H:%M")
   receive_sms_from_tracker(@tracker,
-                           "move! \nlat:51.36162 long:-0.18200 speed:003.0 \r\nT:02/19/15 20:38 \r\n")
+                           "move! \nlat:51.36162 long:-0.18200 speed:003.0 \r\nT:#{reported_at} \r\n")
 
+  reported_at = (1.hour.ago).strftime("%D %H:%M")
   receive_sms_from_tracker(@tracker,
-                           "move! \nlat:51.36174 long:-0.18069 speed:000.8 \r\nT:02/19/15 20:43 \r\n")
+                           "move! \nlat:51.36174 long:-0.18069 speed:000.8 \r\nT:#{reported_at} \r\n")
 end
 
 Then(/^Sheldon can see how the parcel traveled from his home to his office$/) do

@@ -1,7 +1,11 @@
-<% if @tracker.movements.present? %>
+<% if @movements.present? %>
   <div id="map-canvas"></div>
 <% else %>
-  <div>Tracker location is unknown</div>
+  <div>No tracks for this time window</div>
+<% end %>
+
+<%= form_tag @tracker, turboboost: true, method: :get do %>
+  <div id="slider"></div>
 <% end %>
 
 <% if current_user && current_user.trackers.include?(@tracker) %>
@@ -17,6 +21,7 @@
 
 <% content_for :javascript do %>
   <script type="text/javascript" charset="utf-8">
-    <%= render 'map.js', tracker: @tracker, map_container_selector: 'map-canvas' %>
+    <%= render 'map.js', movements: @movements, map_container_id: 'map-canvas' %>
+    <%= render 'slider.js', tracker: @tracker, slider_id: 'slider', slider_params: @slider_params %>
   </script>
 <% end %>

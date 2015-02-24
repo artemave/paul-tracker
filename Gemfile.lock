@@ -238,6 +238,11 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
+    turboboost (0.0.12)
+      coffee-rails
+      jquery-rails
+      railties
+      turbolinks
     turbolinks (2.5.3)
       coffee-rails
     twilio-ruby (3.14.5)
@@ -291,6 +296,7 @@ DEPENDENCIES
   spring
   spring-commands-cucumber
   spring-commands-rspec
+  turboboost
   turbolinks
   twilio-ruby
   uglifier (>= 1.3.0)

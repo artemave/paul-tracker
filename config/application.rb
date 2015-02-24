@@ -24,6 +24,7 @@ module PaulTracker
     config.active_record.raise_in_transactional_callbacks = true
 
     config.assets.paths << "#{Rails.root}/app/assets/fonts"
+    config.assets.paths << "#{Rails.root}/vendor/assets/components"
 
     config.autoload_paths << Rails.root.join('adapters')
   end

@@ -16,3 +16,5 @@
 !/log/.keep
 /tmp
 .envrc
+features/cassettes
+vendor/assets/components/

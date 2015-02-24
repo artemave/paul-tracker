@@ -4,7 +4,7 @@ var coordinates = []
   window.testCoordinates = []
 <% end %>
 
-<% tracker.movements.each do |m| %>
+<% movements.each do |m| %>
   <% unless Rails.env.production? %>
     window.testCoordinates.push([<%= m.lat %>, <%= m.lng %>])
   <% end %>
@@ -12,16 +12,25 @@ var coordinates = []
   coordinates.push( new google.maps.LatLng(<%= m.lat %>, <%= m.lng %>) )
 <% end %>
 
-function initMap(coordinates) {
+function initMap() {
+  if (coordinates.length == 0)
+    return
+
   var mapOptions = { zoomControl: true },
-      map = new google.maps.Map(document.getElementById('<%= map_container_selector %>'), mapOptions),
       bounds = new google.maps.LatLngBounds()
+
+  var appMap = new google.maps.Map(document.getElementById('<%= map_container_id %>'), mapOptions)
+
+  var listener = google.maps.event.addListener(appMap, "idle", function () {
+      appMap.setOptions({maxZoom: 20});
+      google.maps.event.removeListener(listener);
+  });
 
   coordinates.forEach(function(p) {
     bounds.extend(p)
   })
 
-  var path = new google.maps.Polyline({
+  mapPolyline = new google.maps.Polyline({
     path: coordinates,
     geodesic: true,
     strokeColor: '#FF0000',
@@ -29,15 +38,11 @@ function initMap(coordinates) {
     strokeWeight: 2
   });
 
-  map.fitBounds(bounds)
-  path.setMap(map);
-
-  var listener = google.maps.event.addListener(map, "idle", function () {
-      map.setOptions({maxZoom: 20});
-      google.maps.event.removeListener(listener);
-  });
+  appMap.fitBounds(bounds)
+  mapPolyline.setMap(appMap);
 }
 
-if (coordinates.length > 0) {
-  $(document).on("ready page:load", initMap.bind(null, coordinates))
+if (!window.InitMapEventIsSet) {
+  window.InitMapEventIsSet = true
+  $(document).on("ready page:load", initMap)
 }

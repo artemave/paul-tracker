@@ -1,0 +1,25 @@
+$(document).on('ready page:load', function(){
+    var $slider = $('#<%= slider_id %>')
+
+    $slider.noUiSlider({
+        connect: true,
+        start: [<%= slider_params[:time_window_start].to_i %>, <%= slider_params[:time_window_end].to_i %>],
+        range: {
+          min: <%= slider_params[:time_window_min].to_i %>,
+          max: <%= slider_params[:time_window_max].to_i %>
+        }
+    }, true)
+
+    var convertToTime = function(value) {
+        $(this).val(new Date(value * 1000))
+    }
+
+    $slider.Link('lower').to("q[time_window_start]")
+    $slider.Link('upper').to("q[time_window_end]")
+
+    $slider.on({
+        'change': function() {
+          $slider.parent('form').submit()
+        }
+    })
+})
