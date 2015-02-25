@@ -39,6 +39,9 @@ GEM
     addressable (2.3.7)
     anticipate (0.1.1)
     arel (6.0.0)
+    autoprefixer-rails (5.1.7)
+      execjs
+      json
     awesome_print (1.2.0)
     bcrypt (3.1.10)
     better_errors (2.1.1)
@@ -269,6 +272,7 @@ PLATFORMS
 
 DEPENDENCIES
   anticipate
+  autoprefixer-rails
   awesome_print
   better_errors
   binding_of_caller
