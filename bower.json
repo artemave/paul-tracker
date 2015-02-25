@@ -1,6 +1,7 @@
 {
   "name": "paul-tracker client side dependenices",
   "dependencies": {
-    "nouislider": "~7.0.10"
+    "nouislider": "~7.0.10",
+    "pace": "~1.0.2"
   }
 }
