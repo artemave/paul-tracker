@@ -10,9 +10,18 @@ $(document).on('ready page:load', function(){
         }
     }, true)
 
-    var convertToTime = function(value) {
-        $(this).val(new Date(value * 1000))
+    var showDate = {
+      to: function(value) {
+        return (new Date(value * 1000)).toDateString()
+      }
     }
+
+    $slider.noUiSlider_pips({
+        mode: 'count',
+        values: 7,
+        density: 3,
+        format: showDate
+    })
 
     $slider.Link('lower').to("q[time_window_start]")
     $slider.Link('upper').to("q[time_window_end]")
