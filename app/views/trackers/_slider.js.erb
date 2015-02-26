@@ -46,6 +46,13 @@ function initSlider() {
       }
       else {
         newMin = (+time_window_min) + currentScale.asSeconds() / 2
+
+        var $startInput = $sliderForm.find('input[name="q[time_window_start]"]'),
+            currentStart = moment.unix($startInput.val())
+
+        if (moment.unix(newMin).isAfter(currentStart)) {
+          $startInput.val(newMin)
+        }
       }
 
       $minInput.val(newMin)
