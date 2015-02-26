@@ -45,6 +45,15 @@
   }
 }
 
+.scale-button-disabled {
+  opacity: 0.1;
+  cursor: default;
+
+  &:hover {
+    opacity: 0.1;
+  }
+}
+
 .scale-button-left {
   left: 3%;
 }

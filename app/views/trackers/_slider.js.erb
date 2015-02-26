@@ -36,7 +36,11 @@ function initSlider() {
       }
   })
 
-  $slider.find('.scale-button').click(function() {
+  if (currentScale.asDays() <= 1) {
+    $('.scale-button-right').addClass('scale-button-disabled')
+  }
+
+  $slider.find('.scale-button:not(.scale-button-disabled)').click(function() {
       var $minInput       = $sliderForm.find('input[name="q[time_window_min]"]'),
           newMin
 
