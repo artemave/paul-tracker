@@ -10,7 +10,17 @@
 <% end %>
 
 <%= form_tag @tracker, turboboost: true, method: :get do %>
-  <div id="slider"></div>
+  <%= hidden_field_tag 'q[time_window_min]', @slider_params[:time_window_min].to_i %>
+  <%= hidden_field_tag 'q[time_window_max]', @slider_params[:time_window_max].to_i %>
+
+  <div id="slider">
+    <div class="scale-button scale-button-left">
+      <i class="icon-minus-circle"></i>
+    </div>
+    <div class="scale-button scale-button-right">
+      <i class="icon-plus-circle"></i>
+    </div>
+  </div>
 <% end %>
 
 <% if current_user && current_user.trackers.include?(@tracker) %>
@@ -27,6 +37,6 @@
 <% content_for :javascript do %>
   <script type="text/javascript" charset="utf-8">
     <%= render 'map.js', movements: @movements, map_container_id: 'map-canvas' %>
-    <%= render 'slider.js', tracker: @tracker, slider_id: 'slider', slider_params: @slider_params %>
+    <%= render 'slider.js', tracker: @tracker, slider_params: @slider_params %>
   </script>
 <% end %>

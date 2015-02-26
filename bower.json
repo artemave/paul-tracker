@@ -3,6 +3,7 @@
   "dependencies": {
     "nouislider": "~7.0.10",
     "pace": "~1.0.2",
-    "fastclick": "~1.0.6"
+    "fastclick": "~1.0.6",
+    "moment": "~2.9.0"
   }
 }

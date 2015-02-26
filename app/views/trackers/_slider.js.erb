@@ -1,38 +1,59 @@
 function initSlider() {
-    var $slider = $('#<%= slider_id %>')
+  var $slider = $('#slider'),
+      $sliderForm = $slider.parent('form')
 
-    $slider.noUiSlider({
-        connect: true,
-        start: [<%= slider_params[:time_window_start].to_i %>, <%= slider_params[:time_window_end].to_i %>],
-        range: {
-          min: <%= slider_params[:time_window_min].to_i %>,
-          max: <%= slider_params[:time_window_max].to_i %>
-        }
-    }, true)
-
-    var showDate = {
-      to: function(value) {
-        return (new Date(value * 1000)).toDateString()
+  $slider.noUiSlider({
+      connect: true,
+      start: [<%= slider_params[:time_window_start].to_i %>, <%= slider_params[:time_window_end].to_i %>],
+      range: {
+        min: <%= slider_params[:time_window_min].to_i %>,
+        max: <%= slider_params[:time_window_max].to_i %>
       }
+  }, true)
+
+  var showDate = {
+    to: function(value) {
+      return (new Date(value * 1000)).toDateString()
     }
+  }
 
-    $slider.noUiSlider_pips({
-        mode: 'count',
-        values: 7,
-        density: 3,
-        format: showDate
-    })
+  $slider.noUiSlider_pips({
+      mode: 'count',
+      values: 7,
+      density: 3,
+      format: showDate
+  })
 
-    $slider.Link('lower').to("q[time_window_start]")
-    $slider.Link('upper').to("q[time_window_end]")
+  $slider.Link('lower').to("q[time_window_start]")
+  $slider.Link('upper').to("q[time_window_end]")
 
-    $slider.on({
-        'change': function() {
-          $slider.parent('form').submit()
-        }
-    })
+  $slider.on({
+      'change': function() {
+        $sliderForm.submit()
+      }
+  })
 
-    $(document).off('ready page:load', initSlider)
+  $slider.find('.scale-button').click(function() {
+      var $minInput       = $sliderForm.find('input[name="q[time_window_min]"]'),
+          time_window_min = $minInput.val(),
+          time_window_max = $sliderForm.find('input[name="q[time_window_max]"]').val(),
+          currentScale    = moment.duration(time_window_max - time_window_min, 'seconds'),
+          newMin
+
+
+      if ($(this).hasClass('scale-button-left')) {
+        newMin = (+time_window_min) - currentScale.asSeconds()
+      }
+      else {
+        newMin = (+time_window_min) + currentScale.asSeconds() / 2
+      }
+
+      $minInput.val(newMin)
+
+      $sliderForm.submit()
+  })
+
+  $(document).off('page:load', initSlider)
 }
 
 $(document).on('ready page:load', initSlider)

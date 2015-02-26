@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require fastclick
 //= require pace
+//= require moment
 //= require nouislider
 //= require foundation
 //= require turbolinks
