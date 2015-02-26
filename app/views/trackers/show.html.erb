@@ -1,7 +1,12 @@
 <% if @movements.present? %>
   <div id="map-canvas"></div>
 <% else %>
-  <div>No tracks for this time window</div>
+  <div class="alert-box-container">
+    <div data-alert class="alert-box info radius">
+      No tracks for this time window
+      <a href="#" class="close">&times;</a>
+    </div>
+  </div>
 <% end %>
 
 <%= form_tag @tracker, turboboost: true, method: :get do %>

@@ -15,8 +15,23 @@
 
   <body>
 
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <% if notice.present? %>
+      <div class="alert-box-container">
+        <div data-alert class="alert-box info radius">
+          <%= notice %>
+          <a href="#" class="close">&times;</a>
+        </div>
+      </div>
+    <% end %>
+
+    <% if alert.present? %>
+      <div class="alert-box-container">
+        <div data-alert class="alert-box alert radius">
+          <%= alert %>
+          <a href="#" class="close">&times;</a>
+        </div>
+      </div>
+    <% end %>
 
     <div id="loading_overlay"></div>
 
