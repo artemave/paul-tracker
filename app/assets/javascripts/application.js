@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require fastclick
 //= require pace
 //= require nouislider
 //= require foundation
@@ -30,4 +31,6 @@ $(function(){
             $('#loading_overlay').fadeOut()
         }, 100)
     })
+
+    FastClick.attach(document.body);
 });
