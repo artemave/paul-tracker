@@ -1,4 +1,4 @@
-$(document).on('ready page:load', function(){
+function initSlider() {
     var $slider = $('#<%= slider_id %>')
 
     $slider.noUiSlider({
@@ -31,4 +31,8 @@ $(document).on('ready page:load', function(){
           $slider.parent('form').submit()
         }
     })
-})
+
+    $(document).off('ready page:load', initSlider)
+}
+
+$(document).on('ready page:load', initSlider)

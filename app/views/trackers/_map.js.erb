@@ -40,9 +40,8 @@ function initMap() {
 
   appMap.fitBounds(bounds)
   mapPolyline.setMap(appMap);
+
+  $(document).off("ready page:load", initMap)
 }
 
-if (!window.InitMapEventIsSet) {
-  window.InitMapEventIsSet = true
-  $(document).on("ready page:load", initMap)
-}
+$(document).on("ready page:load", initMap)
