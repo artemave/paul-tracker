@@ -1,18 +1,18 @@
-var coordinates = []
+function initMap() {
+  var coordinates = []
 
-<% unless Rails.env.production? %>
-  window.testCoordinates = []
-<% end %>
-
-<% movements.each do |m| %>
   <% unless Rails.env.production? %>
-    window.testCoordinates.push([<%= m.lat %>, <%= m.lng %>])
+    window.testCoordinates = []
   <% end %>
 
-  coordinates.push( new google.maps.LatLng(<%= m.lat %>, <%= m.lng %>) )
-<% end %>
+  <% movements.each do |m| %>
+    <% unless Rails.env.production? %>
+      window.testCoordinates.push([<%= m.lat %>, <%= m.lng %>])
+    <% end %>
 
-function initMap() {
+    coordinates.push( new google.maps.LatLng(<%= m.lat %>, <%= m.lng %>) )
+  <% end %>
+
   if (coordinates.length == 0)
     return
 
