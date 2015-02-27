@@ -31,9 +31,11 @@ function initSlider() {
   $slider.Link('upper').to("q[time_window_end]")
 
   $slider.on({
-      'change': function() {
-        $sliderForm.submit()
-      }
+    'change': function() {
+      setTimeout(function() {
+          $sliderForm.submit()
+        }, 200)
+    }
   })
 
   if (currentScale.asDays() <= 1) {
