@@ -16,13 +16,14 @@ function initMap() {
   if (coordinates.length == 0)
     return
 
-  var mapOptions = { zoomControl: true },
-      bounds = new google.maps.LatLngBounds()
+  var mapOptions      = { zoomControl: true },
+      bounds          = new google.maps.LatLngBounds(),
+      infoStartWindow = new google.maps.InfoWindow({ content: "First reported position" }),
+      infoEndWindow   = new google.maps.InfoWindow({ content: "Last reported position" }),
+      map          = new google.maps.Map(document.getElementById('<%= map_container_id %>'), mapOptions)
 
-  var appMap = new google.maps.Map(document.getElementById('<%= map_container_id %>'), mapOptions)
-
-  var listener = google.maps.event.addListener(appMap, "idle", function () {
-      appMap.setOptions({maxZoom: 20});
+  var listener = google.maps.event.addListener(map, "idle", function () {
+      map.setOptions({maxZoom: 20});
       google.maps.event.removeListener(listener);
   });
 
@@ -30,7 +31,7 @@ function initMap() {
     bounds.extend(p)
   })
 
-  mapPolyline = new google.maps.Polyline({
+  var polyline = new google.maps.Polyline({
     path: coordinates,
     geodesic: true,
     strokeColor: '#FF0000',
@@ -38,8 +39,30 @@ function initMap() {
     strokeWeight: 2
   });
 
-  appMap.fitBounds(bounds)
-  mapPolyline.setMap(appMap);
+  var startMarker = new google.maps.Marker({
+      position: coordinates[0],
+      map: map,
+      title: "First reported position",
+      icon: "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
+  })
+
+  var endMarker = new google.maps.Marker({
+      position: coordinates[coordinates.length - 1],
+      map: map,
+      title: "Last reported position",
+      icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+  })
+
+  google.maps.event.addListener(startMarker, 'click', function() {
+      infoStartWindow.open(map, startMarker)
+  })
+
+  google.maps.event.addListener(endMarker, 'click', function() {
+      infoEndWindow.open(map, endMarker)
+  })
+
+  map.fitBounds(bounds)
+  polyline.setMap(map);
 
   $(document).off("ready page:load", initMap)
 }
