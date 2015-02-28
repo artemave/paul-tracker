@@ -2,8 +2,7 @@ Given(/^Sarah has set a tracker to 'track movement'$/) do
   @tracker_number = ENV.fetch('TEST_TRACKER_PHONE_NUMBER')
   @sarah = FactoryGirl.create :user
   @tracker = @sarah.trackers.create!(phone_number: @tracker_number, password: 'password')
-  @tracker.modes << :track_movement
-  @tracker.save!
+  receive_sms_from_tracker(@tracker, 'move ok!')
 end
 
 When(/^she checks the list of her trackers$/) do
@@ -16,8 +15,7 @@ Then(/^she should see that the tracker is 'tracking movement'$/) do
 end
 
 Then(/^when she stop 'track movement'$/) do
-  @tracker.modes -= [:track_movement]
-  @tracker.save!
+  receive_sms_from_tracker(@tracker, 'nomove ok!')
 end
 
 Then(/^Sarah should see that the tracker is no longer 'tracking movement'$/) do
