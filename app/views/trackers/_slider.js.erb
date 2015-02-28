@@ -3,11 +3,13 @@ function initSlider() {
       $sliderForm = $slider.parent('form'),
       time_window_min = <%= slider_params[:time_window_min].to_i %>,
       time_window_max = <%= slider_params[:time_window_max].to_i %>,
+      time_window_start = <%= slider_params[:time_window_start].to_i %>,
+      time_window_end = <%= slider_params[:time_window_end].to_i %>,
       currentScale = moment.duration(time_window_max - time_window_min, 'seconds')
 
   $slider.noUiSlider({
       connect: true,
-      start: [<%= slider_params[:time_window_start].to_i %>, <%= slider_params[:time_window_end].to_i %>],
+      start: [time_window_start, time_window_end],
       range: {
         min: time_window_min,
         max: time_window_max
@@ -50,24 +52,30 @@ function initSlider() {
   }
 
   $slider.find('.scale-button:not(.scale-button-disabled)').click(function() {
-      var $minInput       = $sliderForm.find('input[name="q[time_window_min]"]'),
-          newMin
+      var $minInput = $sliderForm.find('input[name="q[time_window_min]"]'),
+          $maxInput = $sliderForm.find('input[name="q[time_window_max]"]'),
+          newMin, newMax
 
       if ($(this).hasClass('scale-button-left')) {
-        newMin = (+time_window_min) - currentScale.asSeconds()
+        var currentSliderDuration = time_window_max - time_window_min
+
+        newMin = time_window_min - currentSliderDuration/2
+        newMax = time_window_max + currentSliderDuration/2
+
+        var futureDelta = newMax - Math.floor((new Date()).getTime() / 1000)
+
+        if (futureDelta > 0) {
+          newMin -= futureDelta
+          newMax -= futureDelta
+        }
       }
       else {
-        newMin = (+time_window_min) + currentScale.asSeconds() / 2
-
-        var $startInput = $sliderForm.find('input[name="q[time_window_start]"]'),
-            currentStart = moment.unix($startInput.val())
-
-        if (moment.unix(newMin).isAfter(currentStart)) {
-          $startInput.val(newMin)
-        }
+        newMin = time_window_start
+        newMax = time_window_end
       }
 
       $minInput.val(newMin)
+      $maxInput.val(newMax)
 
       $sliderForm.submit()
   })
