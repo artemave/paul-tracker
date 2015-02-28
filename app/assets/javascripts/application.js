@@ -27,7 +27,7 @@ $(function(){
     $(document).on('page:fetch', function() {
         $('#loading_overlay').fadeIn()
     })
-    $(document).on('ready page:load', function() {
+    $(document).on('ready page:change', function() {
         setTimeout(function() {
             $('#loading_overlay').fadeOut()
         }, 100)
